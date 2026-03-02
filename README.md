@@ -53,7 +53,7 @@ python -m app.main
 
 You should see output showing:
 - an inserted row in `greetings`
-- an upserted row in `dg` (stores `QzDistributionGroup` as `name`, `member[]`, `admin[]`)
+- an inserted row in `dg` (stores bi-temporal `QzDistributionGroup` fields: `name`, `member[]`, `admin[]`, `valid_from/valid_to`, `tx_from/tx_to`)
 
 ## Validation
 

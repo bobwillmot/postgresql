@@ -46,7 +46,7 @@ else
 fi
 
 echo "Ensuring table 'dg' exists in database '${SAMPLE_DB}'..."
-docker compose exec -T "$DB_SERVICE" psql -U "$POSTGRES_USER" -d "$SAMPLE_DB" -c "CREATE TABLE IF NOT EXISTS dg (name TEXT PRIMARY KEY, member TEXT[] NOT NULL DEFAULT '{}', admin TEXT[] NOT NULL DEFAULT '{}');"
+docker compose exec -T "$DB_SERVICE" psql -U "$POSTGRES_USER" -d "$SAMPLE_DB" -c "CREATE TABLE IF NOT EXISTS dg (id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL, member TEXT[] NOT NULL DEFAULT '{}', admin TEXT[] NOT NULL DEFAULT '{}', valid_from TIMESTAMPTZ NOT NULL, valid_to TIMESTAMPTZ, tx_from TIMESTAMPTZ NOT NULL DEFAULT NOW(), tx_to TIMESTAMPTZ, CHECK (valid_to IS NULL OR valid_from < valid_to), CHECK (tx_to IS NULL OR tx_from < tx_to));"
 
 if [[ "$SKIP_DOCS" == "true" ]]; then
   echo "Skipping docs steps (--skip-docs)."
