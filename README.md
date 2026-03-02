@@ -1,6 +1,6 @@
 # Distribution Group (LDAP) Python + PostgreSQL (Docker) + venv
 
-[![CI](https://github.com/bobwillmot/disributiongroup/actions/workflows/ci.yml/badge.svg)](https://github.com/bobwillmot/disributiongroup/actions/workflows/ci.yml)
+[![CI](https://github.com/bobwillmot/distributiongroup/actions/workflows/ci.yml/badge.svg)](https://github.com/bobwillmot/distributiongroup/actions/workflows/ci.yml)
 
 store bi-temporal changes to Microsoft Exchange Distribution Group (LDAP) objects PostgreSQL running in Docker with Python APIs
 
