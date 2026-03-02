@@ -134,11 +134,11 @@ def main() -> None:
                     print_version(index, group, persisted_row)
 
             print("\nRead helpers:")
-            latest_engineering = dg_load(cur, "Engineering Updates")
+            latest_engineering = dg_load("Engineering Updates", cur)
             previous_engineering = (
                 latest_engineering.previous(cur) if latest_engineering is not None else None
             )
-            latest_platform = dg_load(cur, "Engineering Platform Updates")
+            latest_platform = dg_load("Engineering Platform Updates", cur)
             previous_platform = latest_platform.previous(cur) if latest_platform is not None else None
 
             print(f"Latest 'Engineering Updates': {latest_engineering}")

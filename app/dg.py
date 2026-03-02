@@ -2,7 +2,9 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+import os
 
+from dotenv import load_dotenv
 import psycopg
 
 DgRow = tuple[
@@ -16,7 +18,17 @@ DgRow = tuple[
 ]
 
 
-def dg_load(cur: psycopg.Cursor, dg_name: str) -> "DistributionGroup | None":
+def _connection_string() -> str:
+    return (
+        f"dbname={os.getenv('POSTGRES_DB')} "
+        f"user={os.getenv('POSTGRES_USER')} "
+        f"password={os.getenv('POSTGRES_PASSWORD')} "
+        f"host={os.getenv('POSTGRES_HOST', 'localhost')} "
+        f"port={os.getenv('POSTGRES_PORT', '5432')}"
+    )
+
+
+def _dg_load_with_cursor(cur: psycopg.Cursor, dg_name: str) -> "DistributionGroup | None":
     """Load the most recent version of a distribution group by name."""
     cur.execute(
         """
@@ -32,6 +44,22 @@ def dg_load(cur: psycopg.Cursor, dg_name: str) -> "DistributionGroup | None":
     if row is None:
         return None
     return DistributionGroup.from_db_row(row)
+
+
+def dg_load(dg_name: str, cur: psycopg.Cursor | None = None) -> "DistributionGroup | None":
+    """Load the most recent version of a distribution group by name.
+
+    Args:
+        dg_name: Distribution group name.
+        cur: Optional active cursor. If omitted, this function opens its own connection.
+    """
+    if cur is not None:
+        return _dg_load_with_cursor(cur, dg_name)
+
+    load_dotenv()
+    with psycopg.connect(_connection_string()) as conn:
+        with conn.cursor() as local_cur:
+            return _dg_load_with_cursor(local_cur, dg_name)
 
 
 @dataclass
@@ -88,8 +116,7 @@ class DistributionGroup:
             tx_to=row[6],
         )
 
-    def previous(self, cur: psycopg.Cursor) -> "DistributionGroup | None":
-        """Load the previous version of this group by ``name`` and ``tx_from``."""
+    def _previous_with_cursor(self, cur: psycopg.Cursor) -> "DistributionGroup | None":
         cur.execute(
             """
             SELECT name, member, admin, valid_from, valid_to, tx_from, tx_to
@@ -104,3 +131,17 @@ class DistributionGroup:
         if row is None:
             return None
         return DistributionGroup.from_db_row(row)
+
+    def previous(self, cur: psycopg.Cursor | None = None) -> "DistributionGroup | None":
+        """Load the previous version of this group by ``name`` and ``tx_from``.
+
+        Args:
+            cur: Optional active cursor. If omitted, this function opens its own connection.
+        """
+        if cur is not None:
+            return self._previous_with_cursor(cur)
+
+        load_dotenv()
+        with psycopg.connect(_connection_string()) as conn:
+            with conn.cursor() as local_cur:
+                return self._previous_with_cursor(local_cur)
