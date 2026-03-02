@@ -20,6 +20,7 @@
 ## Code Style
 - Keep changes minimal and focused on the requested task.
 - Follow existing project style and naming.
+- Follow PEP 8 for Python code style.
 - Avoid unnecessary abstractions for this small starter project.
 - Add type hints for new Python functions when practical.
 
@@ -31,6 +32,11 @@
 ## Documentation
 - When behavior or setup changes, update `README.md` in the same change.
 - Keep setup steps copy-paste friendly for macOS.
+
+## Agent Chat Logging
+- For every new user request handled in agent mode, append a one-line entry to `chat_summary.md`.
+- Use format: `YYYY-MM-DDTHH:MM:SSZ | Model: <model-name> | User request: <text> | Recap: <what was done>`.
+- Keep `chat_summary.md` append-only; do not rewrite or remove past entries unless explicitly asked.
 
 ## Testing and Verification
 - Prefer quick, local verification before broader checks.

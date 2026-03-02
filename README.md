@@ -121,6 +121,21 @@ Prerequisites:
 
 `setup.sh` installs Python dependencies automatically before rebuilding docs.
 
+## Chat request logging
+
+Project chat requests are tracked in `chat_summary.md`.
+
+Entry format:
+
+- `YYYY-MM-DDTHH:MM:SSZ | Model: <model-name> | User request: <text> | Recap: <what was done>`
+
+Append an entry manually with:
+
+```bash
+chmod +x scripts/log_chat_request.sh
+./scripts/log_chat_request.sh "your request text" "what was done"
+```
+
 ## Create an additional database
 
 Create a database named `sample`:
