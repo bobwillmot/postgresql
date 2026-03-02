@@ -63,6 +63,12 @@ docker compose up -d db
 docker compose ps db
 ```
 
+Run unit tests:
+
+```bash
+.venv/bin/python -m pytest -q
+```
+
 ## Sphinx documentation
 
 Build the class catalog documentation:
