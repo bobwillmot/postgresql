@@ -34,6 +34,10 @@ DB_SERVICE="db"
 POSTGRES_USER="${POSTGRES_USER:-appuser}"
 SAMPLE_DB="sample"
 
+echo "Preparing chat logger script permissions..."
+chmod +x scripts/log_chat_request.sh 2>/dev/null || true
+xattr -d com.apple.quarantine scripts/log_chat_request.sh 2>/dev/null || true
+
 if [[ "$(docker compose exec -T "$DB_SERVICE" psql -U "$POSTGRES_USER" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${SAMPLE_DB}';")" != "1" ]]; then
   echo "Creating database '${SAMPLE_DB}'..."
   docker compose exec -T "$DB_SERVICE" psql -U "$POSTGRES_USER" -d postgres -c "CREATE DATABASE ${SAMPLE_DB};"

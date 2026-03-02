@@ -132,9 +132,10 @@ Entry format:
 Append an entry manually with:
 
 ```bash
-chmod +x scripts/log_chat_request.sh
 ./scripts/log_chat_request.sh "your request text" "what was done"
 ```
+
+`setup.sh` auto-prepares this script (execute permission + macOS quarantine clear), so manual "allow" steps are not needed after setup.
 
 ## Create an additional database
 

@@ -9,3 +9,5 @@ This file tracks agent-mode chat requests for this project.
 - 2026-03-02T02:13:46Z | Model: GPT-5.3-Codex | User request: enhance the chat summary to also include recap of what was done | Recap: Updated logger/script format to include a recap field; updated Copilot instructions and README to require and document the new recap-inclusive entry format.
 - 2026-03-02T02:14:32Z | Model: GPT-5.3-Codex | User request: yes | Recap: Backfilled recap text for prior chat summary entries and ensured all entries follow the required model + recap format.
 - 2026-03-02T02:15:00Z | Model: GPT-5.3-Codex | User request: commit and push | Recap: Committed and pushed pending logging/instructions/docs/script changes to origin/main.
+- 2026-03-02T02:16:23Z | Model: GPT-5.3-Codex | User request: auto-allow log_chat_request.sh withiut having to "allow" | Recap: Updated setup.sh to auto-set execute permissions and clear macOS quarantine for scripts/log_chat_request.sh, and documented the automatic behavior in README.
+- 2026-03-02T02:16:44Z | Model: GPT-5.3-Codex | User request: yes | Recap: Committed and pushed the auto-allow logger setup updates to origin/main.
