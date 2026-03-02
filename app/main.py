@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import psycopg
-from app.dg import QzDistributionGroup
+from app.dg import DistributionGroup
 
 
 def get_connection_string() -> str:
@@ -89,7 +89,7 @@ def main() -> None:
                 """
             )
 
-            group = QzDistributionGroup(
+            group = DistributionGroup(
                 name="Engineering Updates",
                 member=["alice@example.com", "bob@example.com"],
                 admin=["lead@example.com"],
@@ -119,7 +119,7 @@ def main() -> None:
         print("No row returned")
 
     if dg_row:
-        mapped_group = QzDistributionGroup.from_db_row(dg_row)
+        mapped_group = DistributionGroup.from_db_row(dg_row)
         print(f"Upserted dg -> {mapped_group}")
     else:
         print("No dg row returned")

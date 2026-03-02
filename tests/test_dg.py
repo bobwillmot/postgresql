@@ -1,10 +1,10 @@
 from datetime import datetime, timezone
 
-from app.dg import QzDistributionGroup
+from app.dg import DistributionGroup
 
 
 def test_qz_distribution_group_defaults() -> None:
-    group = QzDistributionGroup(name="Engineering")
+    group = DistributionGroup(name="Engineering")
 
     assert group.name == "Engineering"
     assert group.member == []
@@ -18,7 +18,7 @@ def test_qz_distribution_group_defaults() -> None:
 def test_qz_distribution_group_to_db_tuple() -> None:
     valid_from = datetime(2026, 1, 1, tzinfo=timezone.utc)
     tx_from = datetime(2026, 1, 2, tzinfo=timezone.utc)
-    group = QzDistributionGroup(
+    group = DistributionGroup(
         name="Engineering Updates",
         member=["alice@example.com", "bob@example.com"],
         admin=["lead@example.com"],
@@ -52,7 +52,7 @@ def test_qz_distribution_group_from_db_row_copies_lists() -> None:
         tx_to,
     )
 
-    group = QzDistributionGroup.from_db_row(row)
+    group = DistributionGroup.from_db_row(row)
 
     assert group.name == "Engineering Updates"
     assert group.member == ["alice@example.com", "bob@example.com"]

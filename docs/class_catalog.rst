@@ -32,10 +32,10 @@ Prerequisite: PostgreSQL container is running.
 
    docker compose up -d db
 
-QzDistributionGroup
--------------------
+DistributionGroup
+-----------------
 
-.. autoclass:: app.dg.QzDistributionGroup
+.. autoclass:: app.dg.DistributionGroup
    :members:
    :undoc-members:
    :show-inheritance:
@@ -47,9 +47,9 @@ Create and print a group:
 
 .. code-block:: python
 
-   from app.dg import QzDistributionGroup
+      from app.dg import DistributionGroup
 
-   group = QzDistributionGroup(
+      group = DistributionGroup(
        name="Engineering Updates",
        member=["alice@example.com", "bob@example.com"],
        admin=["lead@example.com"],
@@ -61,5 +61,5 @@ Convert to database tuple and reconstruct:
 .. code-block:: python
 
    db_row = group.to_db_tuple()
-   reconstructed = QzDistributionGroup.from_db_row(db_row)
+   reconstructed = DistributionGroup.from_db_row(db_row)
    print(reconstructed)

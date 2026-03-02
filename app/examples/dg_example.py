@@ -1,4 +1,4 @@
-"""Example: three sequential bi-temporal changes for QzDistributionGroup."""
+"""Example: three sequential bi-temporal changes for DistributionGroup."""
 
 from datetime import datetime, timedelta, timezone
 import os
@@ -14,7 +14,7 @@ if __package__ in (None, ""):
     if str(project_root) not in sys.path:
         sys.path.insert(0, str(project_root))
 
-from app.dg import dg_load, QzDistributionGroup
+from app.dg import dg_load, DistributionGroup
 
 
 def get_connection_string() -> str:
@@ -58,7 +58,7 @@ def ensure_dg_schema(cur: psycopg.Cursor) -> None:
 
 def print_version(
     step: int,
-    group: QzDistributionGroup,
+    group: DistributionGroup,
     persisted_row: tuple[
         str,
         list[str],
@@ -75,10 +75,10 @@ def print_version(
     db_row = group.to_db_tuple()
     print(f"As DB tuple: {db_row}")
 
-    reconstructed = QzDistributionGroup.from_db_row(db_row)
+    reconstructed = DistributionGroup.from_db_row(db_row)
     print(f"Reconstructed object: {reconstructed}")
 
-    persisted = QzDistributionGroup.from_db_row(persisted_row)
+    persisted = DistributionGroup.from_db_row(persisted_row)
     print(f"Persisted row from PostgreSQL: {persisted}")
 
 
@@ -87,9 +87,9 @@ def main() -> None:
 
     base_time = datetime(2026, 3, 1, 0, 0, tzinfo=timezone.utc)
 
-    print("QzDistributionGroup bi-temporal change history (with PostgreSQL persistence):")
+    print("DistributionGroup bi-temporal change history (with PostgreSQL persistence):")
 
-    change_1 = QzDistributionGroup(
+    change_1 = DistributionGroup(
         name="Engineering Updates",
         member=["alice@example.com", "bob@example.com"],
         admin=["lead@example.com"],
@@ -97,7 +97,7 @@ def main() -> None:
         tx_from=base_time,
     )
 
-    change_2 = QzDistributionGroup(
+    change_2 = DistributionGroup(
         name="Engineering Updates",
         member=["alice@example.com", "bob@example.com", "carol@example.com"],
         admin=["lead@example.com"],
@@ -105,7 +105,7 @@ def main() -> None:
         tx_from=base_time + timedelta(days=1),
     )
 
-    change_3 = QzDistributionGroup(
+    change_3 = DistributionGroup(
         name="Engineering Platform Updates",
         member=["alice@example.com", "carol@example.com"],
         admin=["lead@example.com", "manager@example.com"],

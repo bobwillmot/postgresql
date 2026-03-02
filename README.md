@@ -53,7 +53,7 @@ python -m app.main
 
 You should see output showing:
 - an inserted row in `greetings`
-- an inserted row in `dg` (stores bi-temporal `QzDistributionGroup` fields: `name`, `member[]`, `admin[]`, `valid_from/valid_to`, `tx_from/tx_to`)
+- an inserted row in `dg` (stores bi-temporal `DistributionGroup` fields: `name`, `member[]`, `admin[]`, `valid_from/valid_to`, `tx_from/tx_to`)
 
 ## Validation
 
@@ -78,7 +78,7 @@ chmod +x ipython.sh
 ./ipython.sh
 ```
 
-This launches IPython with `QzDistributionGroup` pre-imported.
+This launches IPython with `DistributionGroup` pre-imported.
 
 ## Sphinx documentation
 
@@ -163,9 +163,9 @@ docker compose exec -T db psql -U appuser -d postgres -tAc "SELECT datname FROM 
 
 ## Dataclass example
 
-`QzDistributionGroup` is defined in `app/dg.py`.
+`DistributionGroup` is defined in `app/dg.py`.
 
-This example writes to PostgreSQL and demonstrates three sequential changes to a bi-temporal `QzDistributionGroup`.
+This example writes to PostgreSQL and demonstrates three sequential changes to a bi-temporal `DistributionGroup`.
 
 ```python
 from app.examples.dg_example import main
@@ -182,25 +182,25 @@ Run the example script:
 Expected output:
 
 ```text
-QzDistributionGroup bi-temporal change history (with PostgreSQL persistence):
+DistributionGroup bi-temporal change history (with PostgreSQL persistence):
 
 Change 1:
-Object: QzDistributionGroup(...)
+Object: DistributionGroup(...)
 As DB tuple: (...)
-Reconstructed object: QzDistributionGroup(...)
-Persisted row from PostgreSQL: QzDistributionGroup(...)
+Reconstructed object: DistributionGroup(...)
+Persisted row from PostgreSQL: DistributionGroup(...)
 
 Change 2:
-Object: QzDistributionGroup(...)
+Object: DistributionGroup(...)
 As DB tuple: (...)
-Reconstructed object: QzDistributionGroup(...)
-Persisted row from PostgreSQL: QzDistributionGroup(...)
+Reconstructed object: DistributionGroup(...)
+Persisted row from PostgreSQL: DistributionGroup(...)
 
 Change 3:
-Object: QzDistributionGroup(...)
+Object: DistributionGroup(...)
 As DB tuple: (...)
-Reconstructed object: QzDistributionGroup(...)
-Persisted row from PostgreSQL: QzDistributionGroup(...)
+Reconstructed object: DistributionGroup(...)
+Persisted row from PostgreSQL: DistributionGroup(...)
 ```
 
 ## Troubleshooting

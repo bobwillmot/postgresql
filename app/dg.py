@@ -16,7 +16,7 @@ DgRow = tuple[
 ]
 
 
-def dg_load(cur: psycopg.Cursor, dg_name: str) -> "QzDistributionGroup | None":
+def dg_load(cur: psycopg.Cursor, dg_name: str) -> "DistributionGroup | None":
     """Load the most recent version of a distribution group by name."""
     cur.execute(
         """
@@ -31,11 +31,11 @@ def dg_load(cur: psycopg.Cursor, dg_name: str) -> "QzDistributionGroup | None":
     row = cur.fetchone()
     if row is None:
         return None
-    return QzDistributionGroup.from_db_row(row)
+    return DistributionGroup.from_db_row(row)
 
 
 @dataclass
-class QzDistributionGroup:
+class DistributionGroup:
     """Represents a distribution group with bi-temporal attributes."""
 
     name: str
@@ -72,7 +72,7 @@ class QzDistributionGroup:
     def from_db_row(
         cls,
         row: DgRow,
-    ) -> "QzDistributionGroup":
+    ) -> "DistributionGroup":
         """Create an instance from a database row.
 
         Args:
@@ -88,7 +88,7 @@ class QzDistributionGroup:
             tx_to=row[6],
         )
 
-    def previous(self, cur: psycopg.Cursor) -> "QzDistributionGroup | None":
+    def previous(self, cur: psycopg.Cursor) -> "DistributionGroup | None":
         """Load the previous version of this group by ``name`` and ``tx_from``."""
         cur.execute(
             """
@@ -103,4 +103,4 @@ class QzDistributionGroup:
         row = cur.fetchone()
         if row is None:
             return None
-        return QzDistributionGroup.from_db_row(row)
+        return DistributionGroup.from_db_row(row)
