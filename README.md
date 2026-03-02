@@ -1,8 +1,8 @@
-# Python + PostgreSQL (Docker) + venv
+# Distribution Group (LDAP) Python + PostgreSQL (Docker) + venv
 
-[![CI](https://github.com/bobwillmot/postgresql/actions/workflows/ci.yml/badge.svg)](https://github.com/bobwillmot/postgresql/actions/workflows/ci.yml)
+[![CI](https://github.com/bobwillmot/disributiongroup/actions/workflows/ci.yml/badge.svg)](https://github.com/bobwillmot/disributiongroup/actions/workflows/ci.yml)
 
-A minimal starter project for a Python program that connects to PostgreSQL running in Docker.
+store bi-temporal changes to Microsoft Exchange Distribution Group (LDAP) objects PostgreSQL running in Docker with Python APIs
 
 ## Prerequisite
 
