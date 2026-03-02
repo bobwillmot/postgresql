@@ -33,6 +33,19 @@ fi
 DB_SERVICE="db"
 POSTGRES_USER="${POSTGRES_USER:-appuser}"
 SAMPLE_DB="sample"
+DOCS_INDEX="docs/_build/html/index.html"
+
+open_docs_default_browser() {
+  if [[ -f "$DOCS_INDEX" ]]; then
+    if command -v open >/dev/null 2>&1; then
+      open "$DOCS_INDEX" >/dev/null 2>&1 || true
+    elif command -v xdg-open >/dev/null 2>&1; then
+      xdg-open "$DOCS_INDEX" >/dev/null 2>&1 || true
+    elif command -v start >/dev/null 2>&1; then
+      start "$DOCS_INDEX" >/dev/null 2>&1 || true
+    fi
+  fi
+}
 
 echo "Preparing chat logger script permissions..."
 chmod +x scripts/log_chat_request.sh 2>/dev/null || true
@@ -65,4 +78,6 @@ echo "Installing/updating Python dependencies..."
 echo "Rebuilding Sphinx documentation..."
 .venv/bin/python -m sphinx -b html docs docs/_build/html
 
-echo "Setup complete. Docs generated at docs/_build/html/index.html"
+open_docs_default_browser
+
+echo "Setup complete. Docs generated at docs/_build/html/index.html and opened in your default browser."

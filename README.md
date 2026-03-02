@@ -101,6 +101,7 @@ What it does:
 - creates database `sample` if it does not exist
 - creates table `dg` in `sample` if it does not exist
 - rebuilds Sphinx docs to `docs/_build/html`
+- opens `docs/_build/html/index.html` in your default browser
 
 Run it:
 
