@@ -1,5 +1,7 @@
 # Python + PostgreSQL (Docker) + venv
 
+[![CI](https://github.com/bobwillmot/postgresql/actions/workflows/ci.yml/badge.svg)](https://github.com/bobwillmot/postgresql/actions/workflows/ci.yml)
+
 A minimal starter project for a Python program that connects to PostgreSQL running in Docker.
 
 ## Prerequisite
