@@ -1,3 +1,5 @@
+"""Example: three sequential bi-temporal changes for QzDistributionGroup."""
+
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sys
@@ -24,6 +26,8 @@ def print_version(step: int, group: QzDistributionGroup) -> None:
 
 def main() -> None:
     base_time = datetime(2026, 3, 1, 0, 0, tzinfo=timezone.utc)
+
+    print("QzDistributionGroup bi-temporal change history:")
 
     change_1 = QzDistributionGroup(
         name="Engineering Updates",

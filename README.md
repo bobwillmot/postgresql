@@ -167,22 +167,12 @@ docker compose exec -T db psql -U appuser -d postgres -tAc "SELECT datname FROM 
 
 This example is fully local and does not require PostgreSQL to be running.
 
+The script demonstrates three sequential changes to a bi-temporal `QzDistributionGroup`.
+
 ```python
-from app.dg import QzDistributionGroup
+from app.examples.dg_example import main
 
-group = QzDistributionGroup(
-	name="Engineering Updates",
-	member=["alice@example.com", "bob@example.com"],
-	admin=["lead@example.com"],
-)
-
-print(f"Original object: {group}")
-
-db_row = group.to_db_tuple()
-print(f"As DB tuple: {db_row}")
-
-reconstructed = QzDistributionGroup.from_db_row(db_row)
-print(f"Reconstructed object: {reconstructed}")
+main()
 ```
 
 Run the example script:
@@ -194,9 +184,22 @@ Run the example script:
 Expected output:
 
 ```text
-Original object: QzDistributionGroup(name='Engineering Updates', member=['alice@example.com', 'bob@example.com'], admin=['lead@example.com'])
-As DB tuple: ('Engineering Updates', ['alice@example.com', 'bob@example.com'], ['lead@example.com'])
-Reconstructed object: QzDistributionGroup(name='Engineering Updates', member=['alice@example.com', 'bob@example.com'], admin=['lead@example.com'])
+QzDistributionGroup bi-temporal change history:
+
+Change 1:
+Object: QzDistributionGroup(...)
+As DB tuple: (...)
+Reconstructed object: QzDistributionGroup(...)
+
+Change 2:
+Object: QzDistributionGroup(...)
+As DB tuple: (...)
+Reconstructed object: QzDistributionGroup(...)
+
+Change 3:
+Object: QzDistributionGroup(...)
+As DB tuple: (...)
+Reconstructed object: QzDistributionGroup(...)
 ```
 
 ## Troubleshooting
