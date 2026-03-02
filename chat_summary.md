@@ -17,3 +17,5 @@ This file tracks agent-mode chat requests for this project.
 - 2026-03-02T02:24:13Z | Model: GPT-5.3-Codex | User request: yes | Recap: Committed and pushed setup.sh browser auto-open behavior updates along with README and chat summary changes.
 - 2026-03-02T02:30:17Z | Model: GPT-5.3-Codex | User request: create an example where the values in dg_example.py change 3 times | Recap: Updated app/examples/dg_example.py to model three successive bi-temporal changes and print object/DB tuple/reconstructed output for each; verified by running the example.
 - 2026-03-02T02:30:33Z | Model: GPT-5.3-Codex | User request: yes | Recap: Committed and pushed the three-change dg_example update and related chat summary log entry.
+- 2026-03-02T02:31:31Z | User: bobwillmot | Model: GPT-5.3-Codex | User request: chat_summary should track which user makes the request | Recap: Updated chat logging format to include a user field, and updated logger script plus docs/instructions accordingly.
+- 2026-03-02T02:31:56Z | User: bobwillmot | Model: GPT-5.3-Codex | User request: yes | Recap: Committed and pushed user-field chat logging updates (script, docs, instructions, and summary).

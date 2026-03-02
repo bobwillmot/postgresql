@@ -35,7 +35,7 @@
 
 ## Agent Chat Logging
 - For every new user request handled in agent mode, append a one-line entry to `chat_summary.md`.
-- Use format: `YYYY-MM-DDTHH:MM:SSZ | Model: <model-name> | User request: <text> | Recap: <what was done>`.
+- Use format: `YYYY-MM-DDTHH:MM:SSZ | User: <user-name> | Model: <model-name> | User request: <text> | Recap: <what was done>`.
 - Keep `chat_summary.md` append-only; do not rewrite or remove past entries unless explicitly asked.
 
 ## Testing and Verification

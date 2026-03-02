@@ -128,7 +128,7 @@ Project chat requests are tracked in `chat_summary.md`.
 
 Entry format:
 
-- `YYYY-MM-DDTHH:MM:SSZ | Model: <model-name> | User request: <text> | Recap: <what was done>`
+- `YYYY-MM-DDTHH:MM:SSZ | User: <user-name> | Model: <model-name> | User request: <text> | Recap: <what was done>`
 
 Append an entry manually with:
 
