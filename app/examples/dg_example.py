@@ -14,7 +14,7 @@ if __package__ in (None, ""):
     if str(project_root) not in sys.path:
         sys.path.insert(0, str(project_root))
 
-from app.dg import QzDistributionGroup
+from app.dg import dg_load, QzDistributionGroup
 
 
 def get_connection_string() -> str:
@@ -132,6 +132,19 @@ def main() -> None:
 
                 if persisted_row is not None:
                     print_version(index, group, persisted_row)
+
+            print("\nRead helpers:")
+            latest_engineering = dg_load(cur, "Engineering Updates")
+            previous_engineering = (
+                latest_engineering.previous(cur) if latest_engineering is not None else None
+            )
+            latest_platform = dg_load(cur, "Engineering Platform Updates")
+            previous_platform = latest_platform.previous(cur) if latest_platform is not None else None
+
+            print(f"Latest 'Engineering Updates': {latest_engineering}")
+            print(f"Previous 'Engineering Updates': {previous_engineering}")
+            print(f"Latest 'Engineering Platform Updates': {latest_platform}")
+            print(f"Previous 'Engineering Platform Updates': {previous_platform}")
 
 
 if __name__ == "__main__":

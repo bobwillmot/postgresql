@@ -1,7 +1,37 @@
 """Distribution group domain models."""
 
-from datetime import datetime, timezone
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
+
+import psycopg
+
+DgRow = tuple[
+    str,
+    list[str],
+    list[str],
+    datetime,
+    datetime | None,
+    datetime,
+    datetime | None,
+]
+
+
+def dg_load(cur: psycopg.Cursor, dg_name: str) -> "QzDistributionGroup | None":
+    """Load the most recent version of a distribution group by name."""
+    cur.execute(
+        """
+        SELECT name, member, admin, valid_from, valid_to, tx_from, tx_to
+        FROM dg
+        WHERE name = %s
+        ORDER BY tx_from DESC, id DESC
+        LIMIT 1
+        """,
+        (dg_name,),
+    )
+    row = cur.fetchone()
+    if row is None:
+        return None
+    return QzDistributionGroup.from_db_row(row)
 
 
 @dataclass
@@ -41,15 +71,7 @@ class QzDistributionGroup:
     @classmethod
     def from_db_row(
         cls,
-        row: tuple[
-            str,
-            list[str],
-            list[str],
-            datetime,
-            datetime | None,
-            datetime,
-            datetime | None,
-        ],
+        row: DgRow,
     ) -> "QzDistributionGroup":
         """Create an instance from a database row.
 
@@ -65,3 +87,20 @@ class QzDistributionGroup:
             tx_from=row[5],
             tx_to=row[6],
         )
+
+    def previous(self, cur: psycopg.Cursor) -> "QzDistributionGroup | None":
+        """Load the previous version of this group by ``name`` and ``tx_from``."""
+        cur.execute(
+            """
+            SELECT name, member, admin, valid_from, valid_to, tx_from, tx_to
+            FROM dg
+            WHERE name = %s AND tx_from < %s
+            ORDER BY tx_from DESC, id DESC
+            LIMIT 1
+            """,
+            (self.name, self.tx_from),
+        )
+        row = cur.fetchone()
+        if row is None:
+            return None
+        return QzDistributionGroup.from_db_row(row)
