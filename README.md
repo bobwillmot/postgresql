@@ -71,6 +71,15 @@ Run unit tests:
 .venv/bin/python -m pytest -q
 ```
 
+Project IPython shell:
+
+```bash
+chmod +x ipython.sh
+./ipython.sh
+```
+
+This launches IPython with `QzDistributionGroup` pre-imported.
+
 ## Sphinx documentation
 
 Build the class catalog documentation:
