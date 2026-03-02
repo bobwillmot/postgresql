@@ -93,11 +93,12 @@ Generated site:
 
 - `docs/_build/html/index.html`
 
-## setup.sh helper
+## startup.sh helper
 
-Use `setup.sh` to initialize PostgreSQL objects required by this project.
+Use `startup.sh` to initialize PostgreSQL objects required by this project.
 
 What it does:
+- starts PostgreSQL container `db` if needed
 - creates database `sample` if it does not exist
 - creates table `dg` in `sample` if it does not exist
 - rebuilds Sphinx docs to `docs/_build/html`
@@ -106,21 +107,29 @@ What it does:
 Run it:
 
 ```bash
-chmod +x setup.sh
-./setup.sh
+chmod +x startup.sh
+./startup.sh
 ```
 
 Run DB/table setup only (skip dependency install + docs rebuild):
 
 ```bash
-./setup.sh --skip-docs
+./startup.sh --skip-docs
 ```
 
 Prerequisites:
-- PostgreSQL container is running (`docker compose up -d db`)
 - `.venv` exists (`python3.13 -m venv .venv`)
 
-`setup.sh` installs Python dependencies automatically before rebuilding docs.
+`startup.sh` installs Python dependencies automatically before rebuilding docs.
+
+## shutdown.sh helper
+
+Use `shutdown.sh` to stop the PostgreSQL Docker container for this project.
+
+```bash
+chmod +x shutdown.sh
+./shutdown.sh
+```
 
 ## Chat request logging
 
@@ -136,7 +145,7 @@ Append an entry manually with:
 ./scripts/log_chat_request.sh "your request text" "what was done"
 ```
 
-`setup.sh` auto-prepares this script (execute permission + macOS quarantine clear), so manual "allow" steps are not needed after setup.
+`startup.sh` auto-prepares this script (execute permission + macOS quarantine clear), so manual "allow" steps are not needed after setup.
 
 ## Create an additional database
 

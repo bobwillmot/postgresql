@@ -9,13 +9,13 @@ for arg in "$@"; do
       SKIP_DOCS=true
       ;;
     -h|--help)
-      echo "Usage: ./setup.sh [--skip-docs]"
+      echo "Usage: ./startup.sh [--skip-docs]"
       echo "  --skip-docs   Skip dependency install and Sphinx rebuild"
       exit 0
       ;;
     *)
       echo "Unknown option: $arg"
-      echo "Usage: ./setup.sh [--skip-docs]"
+      echo "Usage: ./startup.sh [--skip-docs]"
       exit 1
       ;;
   esac
@@ -47,9 +47,29 @@ open_docs_default_browser() {
   fi
 }
 
+wait_for_db_ready() {
+  local retries=30
+  local attempt=1
+
+  while [[ $attempt -le $retries ]]; do
+    if docker compose exec -T "$DB_SERVICE" pg_isready -U "$POSTGRES_USER" -d postgres >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 1
+    attempt=$((attempt + 1))
+  done
+
+  echo "Error: PostgreSQL did not become ready in time."
+  return 1
+}
+
 echo "Preparing chat logger script permissions..."
 chmod +x scripts/log_chat_request.sh 2>/dev/null || true
 xattr -d com.apple.quarantine scripts/log_chat_request.sh 2>/dev/null || true
+
+echo "Starting PostgreSQL container (service: ${DB_SERVICE})..."
+docker compose up -d "$DB_SERVICE"
+wait_for_db_ready
 
 if [[ "$(docker compose exec -T "$DB_SERVICE" psql -U "$POSTGRES_USER" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${SAMPLE_DB}';")" != "1" ]]; then
   echo "Creating database '${SAMPLE_DB}'..."

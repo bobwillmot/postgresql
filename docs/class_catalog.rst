@@ -6,7 +6,7 @@ This catalog documents core classes and usage examples.
 Database Setup Helper
 ---------------------
 
-Use ``setup.sh`` to initialize PostgreSQL objects required by this project.
+Use ``startup.sh`` to initialize PostgreSQL objects required by this project.
 
 What it does:
 
@@ -17,14 +17,14 @@ Run it:
 
 .. code-block:: bash
 
-   chmod +x setup.sh
-   ./setup.sh
+   chmod +x startup.sh
+   ./startup.sh
 
 Run DB/table setup only (skip dependency install + docs rebuild):
 
 .. code-block:: bash
 
-   ./setup.sh --skip-docs
+   ./startup.sh --skip-docs
 
 Prerequisite: PostgreSQL container is running.
 
