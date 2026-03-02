@@ -165,9 +165,7 @@ docker compose exec -T db psql -U appuser -d postgres -tAc "SELECT datname FROM 
 
 `QzDistributionGroup` is defined in `app/dg.py`.
 
-This example is fully local and does not require PostgreSQL to be running.
-
-The script demonstrates three sequential changes to a bi-temporal `QzDistributionGroup`.
+This example writes to PostgreSQL and demonstrates three sequential changes to a bi-temporal `QzDistributionGroup`.
 
 ```python
 from app.examples.dg_example import main
@@ -184,22 +182,25 @@ Run the example script:
 Expected output:
 
 ```text
-QzDistributionGroup bi-temporal change history:
+QzDistributionGroup bi-temporal change history (with PostgreSQL persistence):
 
 Change 1:
 Object: QzDistributionGroup(...)
 As DB tuple: (...)
 Reconstructed object: QzDistributionGroup(...)
+Persisted row from PostgreSQL: QzDistributionGroup(...)
 
 Change 2:
 Object: QzDistributionGroup(...)
 As DB tuple: (...)
 Reconstructed object: QzDistributionGroup(...)
+Persisted row from PostgreSQL: QzDistributionGroup(...)
 
 Change 3:
 Object: QzDistributionGroup(...)
 As DB tuple: (...)
 Reconstructed object: QzDistributionGroup(...)
+Persisted row from PostgreSQL: QzDistributionGroup(...)
 ```
 
 ## Troubleshooting
